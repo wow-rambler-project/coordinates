@@ -1,0 +1,6 @@
+## Interface: 90001
+## Title: WoW.Rambler.Project.Coordinates
+## Notes: WoW Rambler Project Coordinates Addon
+## Version: 1.0
+
+main.lua
