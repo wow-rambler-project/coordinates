@@ -54,7 +54,7 @@ function mainFrame:SetupCoordinatesFrame()
 	self.mapCoordinatesCache = {}
 	self.playerMapPosition = CreateVector2D(0,0)
 	self.zeroVector = CreateVector2D(0, 0)
-	self.oneVector = CreateVector2D(1, 1)
+	self.unitVector = CreateVector2D(1, 1)
 end
 
 function mainFrame:UpdateZoneInfo()
@@ -77,7 +77,7 @@ function mainFrame:GetPlayerMapPosition(mapId)
 		worldPosition = {}
 		local _
 		_, worldPosition[1] = C_Map.GetWorldPosFromMapPos(mapId, self.zeroVector)
-		_, worldPosition[2] = C_Map.GetWorldPosFromMapPos(mapId, self.oneVector)
+		_, worldPosition[2] = C_Map.GetWorldPosFromMapPos(mapId, self.unitVector)
 
 		-- Exile's Reach - North Sea: returns nil
 		if not worldPosition[1] or not worldPosition[2] then
@@ -89,6 +89,11 @@ function mainFrame:GetPlayerMapPosition(mapId)
 	end
 
 	self.playerMapPosition.x, self.playerMapPosition.y = UnitPosition('player')
+
+	if not self.playerMapPosition.x or not self.playerMapPosition.y then
+		return 0, 0
+	end
+
 	self.playerMapPosition:Subtract(worldPosition[1])
 
 	return (1 / worldPosition[2].y) * self.playerMapPosition.y, (1 / worldPosition[2].x) * self.playerMapPosition.x
