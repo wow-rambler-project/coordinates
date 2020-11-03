@@ -104,7 +104,7 @@ function mainFrame:GetPlayerZonePosition()
 
 	if mapId then
 		local x, y = self:GetPlayerMapPosition(mapId)
-		
+
 		-- This approach uses more memory.
 		-- local mapPosObject = C_Map.GetPlayerMapPosition(mapId, "player")
 		-- if mapPosObject then 
@@ -114,7 +114,7 @@ function mainFrame:GetPlayerZonePosition()
 		-- x = x or 0
 		-- y = y or 0
 
-		return math.floor(x * 1000), math.floor(y * 1000)
+		return x * 100, y * 100
 	end
 
 	return 0, 0
@@ -123,7 +123,7 @@ end
 function mainFrame:OnUpdate(timeDelta)
 	self.timeDelta = self.timeDelta + timeDelta
 
-	if self.timeDelta < (1 / 60) then
+	if self.timeDelta < (1 / 30) then
 		return
 	end
 	
@@ -137,7 +137,7 @@ function mainFrame:OnUpdate(timeDelta)
 
 	if x ~= self.positionX then
 		if x ~= 0 then
-			self.positionXText:SetFormattedText("%.1f", x / 10)
+			self.positionXText:SetFormattedText("%.1f", x)
 		else
 			self.positionXText:SetText("")
 		end
@@ -147,7 +147,7 @@ function mainFrame:OnUpdate(timeDelta)
 
 	if y ~= self.positionY then
 		if y ~= 0 then
-			self.positionYText:SetFormattedText("%.1f", y / 10)
+			self.positionYText:SetFormattedText("%.1f", y)
 		else
 			self.positionYText:SetText("")
 		end
